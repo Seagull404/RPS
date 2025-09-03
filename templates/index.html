@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoveCalc ❤️ Arcade Edition</title>
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: linear-gradient(135deg, #ff4d4d, #66ccff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #ffff00;
+            text-shadow: 4px 4px #ff0066;
+            animation: blink 1.5s infinite;
+        }
+        form {
+            background: #222;
+            padding: 25px;
+            border: 4px solid #ff0066;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.7);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        input[type="text"] {
+            padding: 12px;
+            margin: 10px;
+            border: 3px solid #ffff00;
+            border-radius: 5px;
+            font-size: 1em;
+            width: 220px;
+            background: #000;
+            color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #ff0066;
+            outline: none;
+        }
+        input[type="submit"] {
+            background: #ff0066;
+            color: #ffff00;
+            border: 3px solid #ffff00;
+            padding: 12px 24px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            transition: transform 0.2s;
+        }
+        input[type="submit"]:hover {
+            transform: scale(1.1);
+            background: #ffff00;
+            color: #ff0066;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #ffff00;
+            text-shadow: 2px 2px #ff0066;
+        }
+        .pixel-heart {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: #ff0066;
+            transform: rotate(45deg);
+            animation: pixelFloat 4s infinite;
+            z-index: 0;
+        }
+        .pixel-heart::before,
+        .pixel-heart::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            background: #ff0066;
+            position: absolute;
+        }
+        .pixel-heart::before {
+            top: -8px;
+            left: 0;
+        }
+        .pixel-heart::after {
+            left: 8px;
+            top: 0;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        @keyframes pixelFloat {
+            0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+            100% { transform: translateY(-150px) rotate(45deg); opacity: 0; }
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    </style>
+</head>
+<body>
+    <h1>LoveCalc ❤️ Arcade Edition</h1>
+    <form action="/calclove" method="post" id="loveForm">
+        <input type="text" name="ime1" id="ime1" placeholder="Player 1's Name 🎮">
+        <input type="text" name="ime2" id="ime2" placeholder="Player 2's Name 🕹️">
+        <input type="submit" value="❤️ Start Love Game! ❤️">
+    </form>
+    <div id="result">{{ rezultat }}</div>
+    <script>
+        // Add pixelated hearts for retro arcade vibe
+        function createPixelHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'pixel-heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+        setInterval(createPixelHeart, 800);
+
+        // Funny arcade-style placeholder text
+        const inputs = document.querySelectorAll('input[type="text"]');
+        const arcadeMessages = [
+            "Insert Name to Win Heart! 🏆",
+            "Player Ready? Type Name! 🎉",
+            "Love Quest: Enter Name! 💖",
+            "High Score Name Here! 🌟"
+        ];
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.placeholder = arcadeMessages[Math.floor(Math.random() * arcadeMessages.length)];
+            });
+        });
+    </script>
+</body>
+</html>
